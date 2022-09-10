@@ -26,21 +26,21 @@ class UserValidator {
 
   }
 
-  private function validateUsername(){
+  public function validateUsername(){
 
     $val = trim($this->data['username']);
 
     if(empty($val)){
       $this->addError('username', 'username cannot be empty');
     } else {
-      if(!preg_match('/^[a-zA-Z0-9]$/', $val)){
+      if(!preg_match("/^[a-zA-Z-' ]*$/", $val)){
         $this->addError('username','username must be 6-12 chars & alphanumeric');
       }
     }
 
   }
 
-  private function validateEmail(){
+  public function validateEmail(){
 
     $val = trim($this->data['email']);
 
@@ -54,7 +54,7 @@ class UserValidator {
 
   }
 
-  private function validatePassword(){
+  public function validatePassword(){
 
     $val = trim($this->data['password']);
 
@@ -68,7 +68,7 @@ class UserValidator {
 
   }
 
-  private function validatePasswordConf(){
+  public function validatePasswordConf(){
 
     $val = trim($this->data['password_conf']);
 

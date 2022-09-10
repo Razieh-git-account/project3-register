@@ -10,7 +10,11 @@
     $errors = $validation->validateForm();
 
     // if errors is empty --> save data to db
-    
+    $connect = new User_db();
+    if (count($errors) === 0){
+     return $connect->save();
+     
+    }
   }
 
 ?>
