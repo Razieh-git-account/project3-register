@@ -23,6 +23,7 @@ class UserValidator {
     $this->validateEmail();
     $this->validatePassword();
     return $this->errors;
+    return $this->save();
 
   }
 
@@ -82,8 +83,31 @@ class UserValidator {
 
   }
 
-  private function addError($key, $val){
+  public function addError($key, $val){
     $this->errors[$key] = $val;
+  }
+
+
+  public function save($post_data){
+    include_once 'db.php';
+    $db = new Database();
+    $this->$conn = $db->$conn;
+    // $user = new UserValidator($post_data);
+    // $name = $user->validateUsername($val);
+    // $email = $user->validateEmail($val);
+    // $password = $user->validatePassword($val);
+    $name = mysqli_real_escape_string($this->$conn , $this->data['username']);
+    $email = mysqli_real_escape_string($this->$connn , $this->data['email']);
+    $password = mysqli_real_escape_string($this->$conn , $this->data['password']);
+
+    $sql = $db->$conn->query(" INSERT INTO users(name, email, password) VALUES (? , ? , ?)");
+    $stmt = mysqli_smt_init($db->$conn);
+    if(!mysqli_stmt_prepare($stmt,$sql)){
+      echo "SQL Error";
+    }else{
+      mysqli_stmt_bind_param($stmt, "sss",$name, $email, md5($password));
+    }
+      header("Location: ok.php");
   }
 
 }

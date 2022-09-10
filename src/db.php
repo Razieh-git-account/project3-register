@@ -8,7 +8,7 @@ class Database {
   private $DB_NAME ;
 
 
-  protected function connect(){
+  public function connect(){
     $this->$DB_HOST = "mysql-DB" ;
     $this->$DB_USER = "root" ;
     $this->$DB_PASS = "1234";

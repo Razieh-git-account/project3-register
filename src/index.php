@@ -10,13 +10,15 @@
     $errors = $validation->validateForm();
 
     // if errors is empty --> save data to db
-    $connect = new User_db();
     if (count($errors) === 0){
-     return $connect->save();
-     
+    $result = $validation->save($post_data);
+     if($result){
+      redirect("User Added Successfully","ok.php");
+     }
+      redirect("User Can't Added","index.php");
     }
-  }
-
+    }
+  
 ?>
 
 <!DOCTYPE html>
