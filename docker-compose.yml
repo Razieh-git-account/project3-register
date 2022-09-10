@@ -1,0 +1,39 @@
+version: '3.9'
+volumes:
+
+  mysql_Data:
+    driver: local
+
+services:
+  php:
+    build: .
+    container_name: PHP
+    volumes: 
+      - ./src:/var/www/html/
+    ports:
+      - 8083:80
+
+
+  mysql-DB:
+    image: mysql:latest
+    container_name: mysql-DB
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_DATABASE: "My_db" 
+    volumes:
+      - mysql_Data:/var/lib/mysql
+      - ./src/mysql/config.ini:/etc/mysql/conf.d/config.ini
+
+   
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpMyAdmin
+    restart: always
+    ports:
+      - 6063:80 
+    environment:
+      - PMA_ARBITRARY=1    
+    depends_on:
+      - mysql-DB
