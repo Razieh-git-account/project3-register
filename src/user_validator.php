@@ -1,5 +1,5 @@
 <?php 
-
+include_once 'db.php';
 class UserValidator {
 
   private $data;
@@ -10,7 +10,7 @@ class UserValidator {
     $this->data = $post_data;
   }
 
-  public function validateForm(){
+  public  function validateForm(){
 
     foreach(self::$fields as $field){
       if(!array_key_exists($field, $this->data)){
@@ -23,7 +23,6 @@ class UserValidator {
     $this->validateEmail();
     $this->validatePassword();
     return $this->errors;
-    return $this->save();
 
   }
 
@@ -35,7 +34,7 @@ class UserValidator {
       $this->addError('username', 'username cannot be empty');
     } else {
       if(!preg_match("/^[a-zA-Z-' ]*$/", $val)){
-        $this->addError('username','username must be 6-12 chars & alphanumeric');
+        $this->addError('username','username must be chars ');
       }
     }
 
@@ -88,28 +87,18 @@ class UserValidator {
   }
 
 
-  public function save($post_data){
-    include_once 'db.php';
+  public function save(){
     $db = new Database();
-    $this->$conn = $db->$conn;
-    // $user = new UserValidator($post_data);
-    // $name = $user->validateUsername($val);
-    // $email = $user->validateEmail($val);
-    // $password = $user->validatePassword($val);
-    $name = mysqli_real_escape_string($this->$conn , $this->data['username']);
-    $email = mysqli_real_escape_string($this->$connn , $this->data['email']);
-    $password = mysqli_real_escape_string($this->$conn , $this->data['password']);
+   
+    $name = $this->validateUsername()->$val;
+    $email = $this->validateEmail()->$val;
+    $password = $this->validatePassword()->$val;
 
-    $sql = $db->$conn->query(" INSERT INTO users(name, email, password) VALUES (? , ? , ?)");
-    $stmt = mysqli_smt_init($db->$conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-      echo "SQL Error";
-    }else{
-      mysqli_stmt_bind_param($stmt, "sss",$name, $email, md5($password));
-    }
-      header("Location: ok.php");
+    $stmt= $db->$conn->prepare("INSERT INTO users (name, email, password) VALUES (? , ? , ?)") ;
+    $stmt->bind_param( "sss",$name, $email, md5($password));
+    $stmt->execute();
+    header("Location: ok.php");
   }
 
 }
-
 ?>

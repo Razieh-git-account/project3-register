@@ -1,7 +1,6 @@
 <?php 
 
   require_once('user_validator.php');
-  require_once('user_db.php');
   $errors = [];
 
   if(isset($_POST['submit'])){
@@ -11,13 +10,10 @@
 
     // if errors is empty --> save data to db
     if (count($errors) === 0){
-    $result = $validation->save($post_data);
-     if($result){
-      redirect("User Added Successfully","ok.php");
-     }
-      redirect("User Can't Added","index.php");
+    $validation->save();
+    return;
     }
-    }
+  }
   
 ?>
 
