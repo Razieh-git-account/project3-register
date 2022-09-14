@@ -22,6 +22,7 @@ class UserValidator {
     $this->validateUsername();
     $this->validateEmail();
     $this->validatePassword();
+    $this->validatePasswordConf();
     return $this->errors;
 
   }
