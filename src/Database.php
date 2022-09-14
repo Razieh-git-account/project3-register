@@ -18,7 +18,7 @@ class Database {
 
   public function saveRecord($n , $e , $p){
     $con = $this->connect();
-    mysqli_query($con , "INSERT INTO ".$TABLE_NAME."(name , email, password) VALUES ('$n' , '$e' , '$p')") 
+    mysqli_query($con , "INSERT INTO ".$this->TABLE_NAME."(name , email, password) VALUES ('$n' , '$e' , '$p')") 
     or die(mysqli_error($con));
     header('Location: ok.php');
   }
