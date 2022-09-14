@@ -1,6 +1,6 @@
 <?php 
-
-  require_once('user_validator.php');
+session_start();
+  require_once('UserValidator.php');
   $errors = [];
 
   if(isset($_POST['submit'])){
@@ -10,8 +10,13 @@
 
     // if errors is empty --> save data to db
     if (count($errors) === 0){
-    $validation->save();
-    return;
+      include_once('Database.php');
+      $_SESSION['name'] = $_POST['username'];
+      $_SESSION['email'] = $_POST['email'];
+      $_SESSION['password'] =md5($_POST['username']);
+
+      $object = new Database();
+      $object->saveRecord( $_SESSION['name'] , $_SESSION['email'] , $_SESSION['password']);
     }
   }
   

@@ -1,5 +1,5 @@
 <?php 
-include_once 'db.php';
+include_once 'Database.php';
 class UserValidator {
 
   private $data;
@@ -80,24 +80,6 @@ class UserValidator {
       }
     }
 
-  }
-
-  public function addError($key, $val){
-    $this->errors[$key] = $val;
-  }
-
-
-  public function save(){
-    $db = new Database();
-   
-    $name = $this->validateUsername()->$val;
-    $email = $this->validateEmail()->$val;
-    $password = $this->validatePassword()->$val;
-
-    $stmt= $db->$conn->prepare("INSERT INTO users (name, email, password) VALUES (? , ? , ?)") ;
-    $stmt->bind_param( "sss",$name, $email, md5($password));
-    $stmt->execute();
-    header("Location: ok.php");
   }
 
 }
