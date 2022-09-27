@@ -36,15 +36,12 @@ if(isset($_POST['deleteUser']))
     $result = $user->delete($id);
     if($result)
     {
-        $_SESSION['message'] = "Student Added Successfully";
         header("Location: index.php");
-        exit(0);
     }
     else
     {
-        $_SESSION['message'] = "Student Not Added";
-        header("Location: index.php");
-        exit(0);
+        echo "User can not deleted";
+
     }
 }
 ?>

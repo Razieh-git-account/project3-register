@@ -26,7 +26,7 @@
           }
           else
           {
-              header("Location: addUser.php");
+              echo "User can not deleted";
           }
       }
   }
