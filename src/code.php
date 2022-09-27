@@ -1,32 +1,37 @@
 <?php
 include('DB/Database.php');
-include_once('UserController.php');
-
-if(isset($_POST['save_user']))
-{
-    $db = new Database();
-    $inputData = [
-        'name' => mysqli_real_escape_string($db->conn,$_POST['name']),
-        'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
-        'mobile' => mysqli_real_escape_string($db->conn,$_POST['mobile']),
-        'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
+// include_once('UserController.php');
+// include_once('UserValidator.php');
+// $errors = [];
+// if(isset($_POST['save_user']))
+// {
+//     $validation = new UserValidator($_POST);
+//     $errors = $validation->validateForm();
+//     $db = new Database();
+ 
+//     if (count($errors) === 0){
+//         $inputData = [
+//             'name' => mysqli_real_escape_string($db->conn,$_POST['name']),
+//             'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
+//             'mobile' => mysqli_real_escape_string($db->conn,$_POST['mobile']),
+//             'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
+            
+//         ];
+//         $user = new UserController;
+//         $result = $user->insertInDatabase($inputData);
         
-    ];
-
-    $user = new UserController;
-    $result = $user->insertInDatabase($inputData);
-    
-    if($result)
-    {
-        header("Location: index.php");
-        exit(0);
-    }
-    else
-    {
-        header("Location: addUser.php");
-        exit(0);
-    }
-}
+//         if($result)
+//         {
+//             header("Location: index.php");
+//             exit(0);
+//         }
+//         else
+//         {
+//             header("Location: addUser.php");
+//             exit(0);
+//         }
+//     }
+// }
 
 
 

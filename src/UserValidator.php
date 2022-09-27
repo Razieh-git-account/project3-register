@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include_once 'DB/Database.php';
 class UserValidator {
 

@@ -1,25 +1,36 @@
 <?php 
-session_start();
-  require_once('UserValidator.php');
+  include('DB/Database.php');
+  include_once('UserController.php');
+  include_once('UserValidator.php');
   $errors = [];
- 
-  // if(isset($_POST['submit'])){
-  //   // validate entries
-  //   $validation = new UserValidator($_POST);
-  //   $errors = $validation->validateForm();
+  if(isset($_POST['save_user']))
+  {
+      $validation = new UserValidator($_POST);
+      $errors = $validation->validateForm();
+      $db = new Database();
+   
+      if (count($errors) === 0){
+          $inputData = [
+              'name' => mysqli_real_escape_string($db->conn,$_POST['name']),
+              'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
+              'mobile' => mysqli_real_escape_string($db->conn,$_POST['mobile']),
+              'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
+              
+          ];
+          $user = new UserController;
+          $result = $user->insertInDatabase($inputData);
+          
+          if($result)
+          {
+              header("Location: index.php");
+          }
+          else
+          {
+              header("Location: addUser.php");
+          }
+      }
+  }
 
-  //   // if errors is empty --> save data to db
-  //   if (count($errors) === 0){
-  //     include_once('Database.php');
-  //     $_SESSION['name'] = $_POST['username'];
-  //     $_SESSION['email'] = $_POST['email'];
-  //     $_SESSION['password'] =md5($_POST['password']);
-
-  //     $object = new Database();
-  //     $object->saveRecord( $_SESSION['name'] , $_SESSION['email'] , $_SESSION['password']);
-  //   }
-  // }
-  
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +38,7 @@ session_start();
 <?php include_once('templates/header.php'); ?>
 <section class="container ">
 		<h4 >اضافه کردن کاربر</h4>
-        <form class="white  z-depth-3" id="users" action="code.php" method="POST"  >
+        <form class="white  z-depth-3" id="users" action="addUser.php" method="POST"  >
             
             <input type="text" class="input" name="name" value="<?php echo htmlspecialchars($_POST['name']) ?? ''; ?>" placeholder="نام کاربری شما...">
             <div class="red-text"> <?php  echo $errors['name'] ?? '' ?> </div>
