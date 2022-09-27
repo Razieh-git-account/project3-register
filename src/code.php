@@ -1,5 +1,5 @@
 <?php
-include('Database.php');
+include('DB/Database.php');
 include_once('UserController.php');
 
 if(isset($_POST['save_user']))

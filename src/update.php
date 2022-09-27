@@ -2,7 +2,7 @@
   require_once('UserValidatorUpdate.php');
   require_once('UserController.php');
   $errors = [];
-  include_once('Database.php');
+  include_once('DB/Database.php');
 //   if(isset($_GET['updateid'])){
 //     $id = $_GET['updateid'];
 //     $object = new Database();

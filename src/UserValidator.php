@@ -1,10 +1,10 @@
 <?php 
-include_once 'Database.php';
+include_once 'DB/Database.php';
 class UserValidator {
 
   private $data;
   private $errors = [];
-  private static $fields = ['username', 'email' , 'password' , 'password_conf'];
+  private static $fields = ['name', 'email' , 'mobile' , 'password'];
 
   public function __construct($post_data){
     $this->data = $post_data;
@@ -21,21 +21,21 @@ class UserValidator {
 
     $this->validateUsername();
     $this->validateEmail();
+    $this->validateMobile();
     $this->validatePassword();
-    $this->validatePasswordConf();
     return $this->errors;
 
   }
 
   public function validateUsername(){
 
-    $val = trim($this->data['username']);
+    $val = trim($this->data['name']);
 
     if(empty($val)){
-      $this->addError('username', 'username cannot be empty');
+      $this->addError('name', 'اسم نباید خالی باشد');
     } else {
       if(!preg_match("/^[a-zA-Z-' ]*$/", $val)){
-        $this->addError('username','username must be chars ');
+        $this->addError('name','اسم فقط شامل حروف است ');
       }
     }
 
@@ -46,10 +46,24 @@ class UserValidator {
     $val = trim($this->data['email']);
 
     if(empty($val)){
-      $this->addError('email', 'email cannot be empty');
+      $this->addError('email', 'ایمیل نباید خالی باشد');
     } else {
       if(!filter_var($val, FILTER_VALIDATE_EMAIL)){
-        $this->addError('email', 'email must be a valid email address');
+        $this->addError('email', 'ایمیل  نامعتبر است');
+      }
+    }
+
+  }
+
+  public function validateMobile(){
+
+    $val = trim($this->data['mobile']);
+
+    if(empty($val)){
+      $this->addError('mobile', 'موبایل نباید خالی باشد');
+    } else {
+      if(!preg_match("/^[0-9' ]*$/", $val)){
+        $this->addError('mobile','موبایل را بصورت عدد وارد کنید');
       }
     }
 
@@ -60,24 +74,10 @@ class UserValidator {
     $val = trim($this->data['password']);
 
     if(empty($val)){
-      $this->addError('password', 'password cannot be empty');
+      $this->addError('password', 'رمز نباید خالی باشد');
     } else {
       if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,10}$/', $val)){
-        $this->addError('password','password must be 6-12 chars & alphanumeric & special chars');
-      }
-    }
-
-  }
-
-  public function validatePasswordConf(){
-
-    $val = trim($this->data['password_conf']);
-
-    if(empty($val)){
-      $this->addError('password_conf', 'password_conf cannot be empty');
-    } else {
-      if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,10}$/', $val)){
-        $this->addError('password_conf','The password_conf must be the same as the password');
+        $this->addError('password','رمز عبور باید ترکیبی از اعداد و حروف و بین 6 تا 10 کاراکتر باشد');
       }
     }
 

@@ -1,5 +1,5 @@
 <?php 
- include_once('Database.php'); 
+ include_once('DB/Database.php'); 
  include_once('UserController.php');
  include_once('templates/header.php');
 ?>
