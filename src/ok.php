@@ -12,7 +12,7 @@ session_start();
      <h5>    اطلاعات شما با موفقیت در Database  ثبت گردید      </h5>
      <br>
      <div class="center">
-          <a href="index.php"  class="btn brand z-depth-5">برگشت به ثبت نام  </a>
+          <a href="index.php"  class="btn brand z-depth-5">برگشت به صفححه اصلی   </a>
      </div>
 </section>
 

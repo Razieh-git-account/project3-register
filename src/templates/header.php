@@ -2,6 +2,7 @@
     <title>ثبت نام در سایت</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
         .brand{
@@ -51,6 +52,6 @@
 <body class="orange lighten-4">
     <nav class="white z-depth-1">
         <div class="container">
-            <a  class="brand-logo brand-text ">ثبت نام کاربران</a>
+            <a  class="brand-logo brand-text right "> اطلاعات کاربر </a>
         </div>
     </nav>
