@@ -3,7 +3,6 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./style.css">
     <style>
         .brand{
             background: #e3431b !important;
@@ -46,7 +45,13 @@
             color:#4a3d38;
         }    
     
-        
+        .img{
+            width:600px;
+            height:100px;
+            position: relative;
+            top:10px;
+            left:20px;
+        }
     </style>
 </head>
 <body class="orange lighten-4">

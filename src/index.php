@@ -5,7 +5,12 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
+<style>
+    img{
+        width: 70px;
+        height:70px;
+    }
+</style>
 <div class="container ">
    <div class="mt-2">
      <button  class="btn btn-primary my-5" title="برای اضافه کردن کاربر جدید کلیک کنید"> <a href="addUser.php" class="text-light" > Add User </a></button>
@@ -19,6 +24,7 @@
             <th scope="col">ایمیل</th>
             <th scope="col">موبایل</th>
             <th scope="col">پسورد</th>
+            <th scope="col">عکس</th>
             <th scope="col">ویرایش</th>
             <th scope="col">حذف</th>
             </tr>
@@ -31,24 +37,34 @@
         if($result) {
             foreach($result as $row) {
                 ?>
-                
-                <tr>
-                    <td scope="col"><?= $row['id'] ?></td>
-                    <td><?= $row['name'] ?></td>
-                    <td><?= $row['email'] ?></td>
-                    <td><?= $row['mobile'] ?></td>
-                    <td><?= $row['password'] ?></td>
+                <?php
+                    $id = $row['id'];
+                    $name = $row['name'];
+                    $email = $row['email'];
+                    $mobile = $row['mobile'];
+                    $password = $row['password'];
+                    $image = $row['image'];
+                 echo   
+                '<tr>
+                    <td>'.$id.'</td>
+                    <td>'.$name.'</td>
+                    <td>'.$email.'</td>
+                    <td>'.$mobile.'</td>
+                    <td>'.$password.'</td>
+                    <td> <img src='.$image.' /> </td>
                     <td>
-                        <a href="update.php?id=<?=$row['id'];?>" class="btn btn-success">Update</a>
+                        <br>  
+                        <a href="update.php?id='.$id.'" class="btn btn-success">Update</a>
                     </td>
 
                     <td>
+                        <br>
                         <form action="code.php" method="POST">
-                            <button type="submit" name="deleteUser" value="<?= $row['id'] ?>" class="btn btn-danger">Delete</button>
+                            <button type="submit" name="deleteUser" value="'.$id.'" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
-                </tr>
-                <?php
+                </tr>';
+                
             }
         } else {
             echo "No Record Found";

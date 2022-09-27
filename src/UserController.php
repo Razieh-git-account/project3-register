@@ -20,15 +20,17 @@ class UserController
         }
     }
 
-    public function insertInDatabase($inputData)
+    public function insertInDatabase($inputData , $file)
     {
         $name = $inputData['name'];
         $email = $inputData['email'];
         $mobile = $inputData['mobile'];
         $password = md5($inputData['password']);
+       
 
-        $sql = "INSERT INTO Users (name,email,mobile,password) VALUES ('$name','$email','$mobile','$password')";
-        $result = $this->conn->query($sql);
+        $sql = "INSERT INTO Users (name, email ,mobile ,password ,image) VALUES ('$name','$email','$mobile','$password','$file')";
+        $result = mysqli_query($this->conn , $sql);
+        
         if($result){
             return true;
         }else{
