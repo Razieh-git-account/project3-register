@@ -8,7 +8,7 @@
 
 <div class="container ">
    <div class="mt-2">
-     <button  class="btn btn-primary my-5"> <a href="form.php" class="text-light" > Add User </a></button>
+     <button  class="btn btn-primary my-5" title="برای اضافه کردن کاربر جدید کلیک کنید"> <a href="addUser.php" class="text-light" > Add User </a></button>
    </div>
     <div class="table-responsive">
         <table class="table table-bordered">

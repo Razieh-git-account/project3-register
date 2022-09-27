@@ -23,7 +23,7 @@ if(isset($_POST['save_user']))
     }
     else
     {
-        header("Location: form.php");
+        header("Location: addUser.php");
         exit(0);
     }
 }

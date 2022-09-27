@@ -39,7 +39,7 @@ class UserController
     public function edit($id)
     {
         $user_id = mysqli_real_escape_string($this->conn, $id);
-        $sql = "SELECT * FROM Users WHERE id='$id' LIMIT 1";
+        $sql = "SELECT * FROM Users WHERE id='$user_id' LIMIT 1";
         $result = $this->conn->query($sql);
         if($result->num_rows == 1){
             $data = $result->fetch_assoc();
@@ -69,8 +69,8 @@ class UserController
 
     public function delete($id)
     {
-        $student_id = mysqli_real_escape_string($this->conn,$id);
-        $sql = "DELETE FROM Users WHERE id='$id' LIMIT 1";
+        $user_id = mysqli_real_escape_string($this->conn,$id);
+        $sql = "DELETE FROM Users WHERE id='$user_id' LIMIT 1";
         $result = $this->conn->query($sql);
         if($result){
             return true;
