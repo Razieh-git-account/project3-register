@@ -1,0 +1,41 @@
+<?php 
+    include_once('DB/Database.php'); 
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        img{
+            width: 70px;
+            height:70px;
+        }
+    </style>
+<body style="background :#ffe0b2;">
+    <?php
+        $data = $_GET['data'];
+        $db = new Database;
+        $sql = "SELECT * FROM Users WHERE id= '$data' ";
+        $result = $db->conn->query($sql);
+        if($result){
+            $row = mysqli_fetch_assoc($result);
+            $image = $row['image'];
+           echo '<div class="container">
+            <div class="jumbotron">
+                <h1 class="display-4 text-center text-success mb-4">'.$row['name'].'</h1>
+                <p class="text-danger text-center"> Your email is : '.$row['email'].'</p>
+                <p class="text-dark text-center"> Your mobile is : '.$row['mobile'].'</p>
+                <p class="text-warning text-center"> Your password is : '.$row['password'].'</p>
+                <p class=" text-info text-center"> Your image is...   <img src='.$image.' /> </p>
+                <hr class="my-4">
+                <p class="lead"><a class="btn btn-dark btn-lg" href="search.php" role="button"> Back </a> </p>
+            </div>
+           </div>';
+        }
+    ?>
+</body>
+</html>

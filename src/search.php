@@ -11,12 +11,6 @@ include_once('DB/Database.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-    img{
-        width: 70px;
-        height:70px;
-    }
-</style>
 </head>
 <body style="background :#ffe0b2;">
     <div class="container ">
@@ -41,31 +35,22 @@ include_once('DB/Database.php');
             if($result){
                 if(mysqli_num_rows($result)>0){
                     echo '<thead >
-                    <tr class="center">
+                    <tr class="text-center">
                         <th scope="col">شماره</th>
                         <th scope="col">نام کاربری</th>
                         <th scope="col">ایمیل</th>
-                        <th scope="col">موبایل</th>
-                        <th scope="col">پسورد</th>
-                        <th scope="col">عکس</th>
                     </tr>
                     </thead>';
                     while($row = mysqli_fetch_assoc($result)){
                         $id = $row['id'];
                         $name = $row['name'];
                         $email = $row['email'];
-                        $mobile = $row['mobile'];
-                        $password = $row['password'];
-                        $image = $row['image'];
-
+                     
                         echo '<tbody>
-                        <tr >
-                            <td class="align-middle">'.$id.'</td>
+                        <tr class="text-center">
+                            <td class="align-middle"><a href="searchData.php?data='.$id.'" >'.$id.'</a></td>
                             <td class="align-middle">'.$name.'</td>
-                            <td class="align-middle">'.$email.'</td>
-                            <td class="align-middle">'.$mobile.'</td>
-                            <td class="align-middle">'.$password.'</td>
-                            <td class="align-middle"><img src='.$image.' /></td>
+                            <td class="align-middle">'.$email.'</td> 
                         </tr>
                         </tbody>';
                     }
