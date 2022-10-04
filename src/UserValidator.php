@@ -34,8 +34,8 @@ class UserValidator {
     if(empty($val)){
       $this->addError('name', 'اسم نباید خالی باشد');
     } else {
-      if(!preg_match("/^[a-zA-Z-' ]*$/", $val)){
-        $this->addError('name','اسم فقط شامل حروف است ');
+      if(!preg_match("/^[a-zA-Z0-9-' ]*$/", $val)){
+        $this->addError('name','اسم شامل حروف , عدد است ');
       }
     }
 

@@ -24,7 +24,7 @@
     </div>
  
 
-    <div class="table-responsive">
+    <div class=" table-hover">
         <table class="table table-bordered">
         <thead >
             <tr class="center">
@@ -55,20 +55,19 @@
                     $image = $row['image'];
                  echo   
                 '<tr>
-                    <td>'.$id.'</td>
-                    <td>'.$name.'</td>
-                    <td>'.$email.'</td>
-                    <td>'.$mobile.'</td>
-                    <td>'.$password.'</td>
-                    <td> <img src='.$image.' /> </td>
-                    <td>
-                        <br>  
+                    <td class="align-middle">'.$id.'</td>
+                    <td class="align-middle">'.$name.'</td>
+                    <td class="align-middle">'.$email.'</td>
+                    <td class="align-middle">'.$mobile.'</td>
+                    <td class="align-middle">'.$password.'</td>
+                    <td class="align-middle"> <img src='.$image.' /> </td>
+                    <td class="align-middle">
                         <a href="update.php?id='.$id.'" class="btn btn-success">Update</a>
                     </td>
 
-                    <td>
-                        <br>
+                    <td class="align-middle">
                         <form action="code.php" method="POST">
+                        <br>
                             <button type="submit" name="deleteUser" value="'.$id.'" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
