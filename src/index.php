@@ -24,7 +24,7 @@
     </div>
  
 
-    <div class=" table-hover">
+    <div class="table-striped">
         <table class="table table-bordered">
         <thead >
             <tr class="center">
