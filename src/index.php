@@ -12,9 +12,18 @@
     }
 </style>
 <div class="container ">
-   <div class="mt-2">
-     <button  class="btn btn-primary my-5" title="برای اضافه کردن کاربر جدید کلیک کنید"> <a href="addUser.php" class="text-light" > Add User </a></button>
-   </div>
+    <div>
+        <button  type="button" class="btn btn-primary mt-5 mb-1 text-capitalize" title="برای اضافه کردن کاربر جدید کلیک کنید"> 
+            <a href="addUser.php" class="text-light" > Add New User </a>
+        </button>
+    </div>
+    <div class="mt-2 ">
+        <button  type="button" class="btn btn-secondary  text-capitalize mb-5" title="برای جستجو کردن آیتم مورد نظر کلیک کنید">
+            <a href="search.php" class="text-light " > .....Search Data </a>
+        </button>
+    </div>
+ 
+
     <div class="table-responsive">
         <table class="table table-bordered">
         <thead >
