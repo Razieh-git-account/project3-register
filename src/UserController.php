@@ -27,8 +27,11 @@ class UserController
         $mobile = $inputData['mobile'];
         $password = md5($inputData['password']);
         $allData = $inputData['datas'];
+        $gender = $inputData['gender'];
+        $edu = $inputData['education'];
 
-        $sql = "INSERT INTO Users (name, email ,mobile ,password , checkboxData ,image) VALUES ('$name','$email','$mobile','$password', '$allData' , '$file')";
+        $sql = "INSERT INTO Users (name, email ,mobile ,password , checkboxData, gender , education ,image) 
+                VALUES ('$name','$email','$mobile','$password', '$allData' ,'$gender' , '$edu' , '$file')";
         $result = mysqli_query($this->conn , $sql);
         
         if($result){

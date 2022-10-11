@@ -16,6 +16,8 @@
               'mobile' => mysqli_real_escape_string($db->conn,$_POST['mobile']),
               'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
               'datas' => mysqli_real_escape_string($db->conn,implode(",", $_POST['data'])),
+              'gender' => mysqli_real_escape_string($db->conn,$_POST['gender']),
+              'education' => mysqli_real_escape_string($db->conn,$_POST['education']),
           ];
 
           $user = new UserController;
@@ -45,7 +47,19 @@
 
             <input type="password" class="input" name="password" value="<?php echo htmlspecialchars($_POST['password']); ?>"   placeholder=" Enter your Password...">
             <div class="text-danger"> <?php echo $errors['password'] ?? '' ?> </div>
-           <br>
+            <div class="my-3"> Gender :
+                <input type="radio"  name="gender" value="male">Male
+                <input type="radio"  name="gender" value="female">Female
+
+                <select name="education" style="margin-left:90px;" >
+                    <option value="Select Degree">Select Degree</option>
+                    <option value="Primary School">Primary School</option>
+                    <option value="High School">High School</option>
+                    <option value=" Diplom">Diplom</option>
+                    <option value=" Bachelor">Bachelor</option>
+                    <option value=" Master">Master</option>
+                </select>
+            </div>
             <div> Favorite Language: 
                 <input type="checkbox"  name="data[]" value="Latin"> Latin
                 <input type="checkbox"  name="data[]" value="Persian"> Persian
