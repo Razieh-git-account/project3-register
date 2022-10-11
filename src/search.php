@@ -11,7 +11,7 @@ include_once('DB/Database.php');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body style="background :#ffe0b2;">
-    <div class="container ">
+    <div class="container">
        <div class="my-5 mt-2">
             <p class="h3 text-center p-2 mb-4">عنوان جستجو را وارد کنید</p>
             <form method="post">
@@ -29,7 +29,7 @@ include_once('DB/Database.php');
         if(isset($_POST['search'])){
             $search = $_POST['search_item'];
             $db = new Database;
-            $sql = "SELECT * FROM Users WHERE email like '%$search%' OR name like '%$search%' OR mobile like '%$search%' ";
+            $sql = "SELECT * FROM Users WHERE email like '%$search%' OR name like '%$search%' OR mobile like '%$search%'  OR checkboxData like '%$search%'";
             $result = $db->conn->query($sql);
             if($result){
                 if(mysqli_num_rows($result)>0){
@@ -40,6 +40,7 @@ include_once('DB/Database.php');
                             <th scope="col">نام کاربری</th>
                             <th scope="col">ایمیل</th>
                             <th scope="col">موبایل</th>
+                            <th scope="col">علاقه مندی</th>
                         </tr>
                     </thead>';
                     while($row = mysqli_fetch_assoc($result)){
@@ -47,6 +48,7 @@ include_once('DB/Database.php');
                         $name = $row['name'];
                         $email = $row['email'];
                         $mobile = $row['mobile'];
+                        $chechboxData = $row['checkboxData'];
                      
                         echo 
                         '<tbody>
@@ -57,6 +59,7 @@ include_once('DB/Database.php');
                                 <td class="align-middle">'.$name.'</td>
                                 <td class="align-middle">'.$email.'</td> 
                                 <td class="align-middle">'.$mobile.'</td> 
+                                <td class="align-middle">'.$chechboxData.'</td> 
                             </tr>
                         </tbody>';
                     }

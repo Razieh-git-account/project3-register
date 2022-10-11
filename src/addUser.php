@@ -15,31 +15,11 @@
               'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
               'mobile' => mysqli_real_escape_string($db->conn,$_POST['mobile']),
               'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
+              'datas' => mysqli_real_escape_string($db->conn,implode(",", $_POST['data'])),
           ];
 
-          $image = $_FILES['image'];
-          $imageFileName = $image['name'];
-        //   $imageFileError = $image['error'];
-          $imageFileTemp = $image['tmp_name'];
-          $fileName_seprate = explode('.',$imageFileName);
-          $file_extension = strtolower(end($fileName_seprate));
-          $extension = array('jpg','jpeg','png');
-
-          if(in_array($file_extension , $extension)){
-                $uploade_image = 'images/'.$imageFileName;
-                move_uploaded_file($imageFileTemp , $uploade_image); 
-                
-                $user = new UserController;
-                $result = $user->insertInDatabase($inputData ,$uploade_image );
-                if($result)
-                {
-                    header("Location: index.php");
-                }
-                else
-                {
-                    echo "User can not saved";
-                }   
-        }
+          $user = new UserController;
+          $user->upload_image($inputData);     
     }
   }
 ?>
@@ -47,34 +27,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include_once('templates/header.php'); ?>
-<section class="container ">
+<div class="container">
 		<h4 >اضافه کردن کاربر</h4>
       
-        <form class="white z-depth-3" id="users" action="addUser.php" method="POST" enctype="multipart/form-data"  >
+        <form  id="users" action="addUser.php" method="POST" enctype="multipart/form-data"  >
             
-            <input type="text" class="input" name="name" value="<?php echo htmlspecialchars($_POST['name']) ?? ''; ?>" placeholder="نام شما...">
-            <div class="red-text"> <?php  echo $errors['name'] ?? '' ?> </div>
+            <input type="text" class="input" name="name" value="<?php echo htmlspecialchars($_POST['name']) ?? ''; ?>" placeholder="Enter your Name...">
+            <div class="text-danger"> <?php  echo $errors['name'] ?? '' ?> </div>
 
-            <input type="text" class="input" name="email" value="<?php echo htmlspecialchars($_POST['email']); ?>"  placeholder="ایمیل شما...">
-            <div class="red-text"> <?php echo $errors['email'] ?? '' ?> </div>
+            <input type="text" class="input" name="email" value="<?php echo htmlspecialchars($_POST['email']); ?>"  placeholder=" Enter your Email...">
+            <div class="text-danger"> <?php echo $errors['email'] ?? '' ?> </div>
 
-            <input type="text" class="input" name="mobile" value="<?php echo htmlspecialchars($_POST['mobile']); ?>"  placeholder="موبایل شما...">
-            <div class="red-text"> <?php echo $errors['mobile'] ?? '' ?> </div>
+            <input type="text" class="input" name="mobile" value="<?php echo htmlspecialchars($_POST['mobile']); ?>"  placeholder="Enter your Mobile Number...">
+            <div class="text-danger"> <?php echo $errors['mobile'] ?? '' ?> </div>
 
-            <input type="password" class="input" name="password" value="<?php echo htmlspecialchars($_POST['password']); ?>"   placeholder=" رمز شما...">
-            <div class="red-text"> <?php echo $errors['password'] ?? '' ?> </div>
+            <input type="password" class="input" name="password" value="<?php echo htmlspecialchars($_POST['password']); ?>"   placeholder=" Enter your Password...">
+            <div class="text-danger"> <?php echo $errors['password'] ?? '' ?> </div>
            <br>
-
+            <div> Favorite Language: 
+                <input type="checkbox"  name="data[]" value="Latin"> Latin
+                <input type="checkbox"  name="data[]" value="Persian"> Persian
+                <input type="checkbox"  name="data[]" value="Arabic"> Arabic
+                <input type="checkbox"  name="data[]" value="Turkey"> Turkey
+                <input type="checkbox"  name="data[]" value="Germany"> Germany
+            </div>
+            <br>
             <div class="img">
-                <label for="">تصویر را انتخاب کنید...</label>
+                <label for=""> Choose your picture... </label>
                 <input type="file" name="image" >
             </div>
             <div class="center">
-                <input type="submit" name="save_user" value="ثبت نام" class="btn brand z-depth-5">
+                <input type="submit" name="save_user" value="Register" class="btn btn-danger my-2 ">
             </div>
             
         </form>
-</section>
+</div>
 
 <br><br>
 

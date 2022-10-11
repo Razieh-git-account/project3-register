@@ -26,9 +26,9 @@ class UserController
         $email = $inputData['email'];
         $mobile = $inputData['mobile'];
         $password = md5($inputData['password']);
-       
+        $allData = $inputData['datas'];
 
-        $sql = "INSERT INTO Users (name, email ,mobile ,password ,image) VALUES ('$name','$email','$mobile','$password','$file')";
+        $sql = "INSERT INTO Users (name, email ,mobile ,password , checkboxData ,image) VALUES ('$name','$email','$mobile','$password', '$allData' , '$file')";
         $result = mysqli_query($this->conn , $sql);
         
         if($result){
@@ -41,7 +41,7 @@ class UserController
     public function edit($id)
     {
         $user_id = mysqli_real_escape_string($this->conn, $id);
-        $sql = "SELECT * FROM Users WHERE id='$user_id' LIMIT 1";
+        $sql = "SELECT * FROM Users WHERE id='$user_id' ";
         $result = $this->conn->query($sql);
         if($result->num_rows == 1){
             $data = $result->fetch_assoc();
@@ -60,7 +60,7 @@ class UserController
         $password = md5($inputData['password']);
     
 
-        $sql = "UPDATE Users SET name='$name', email='$email', mobile='$mobile', password='$password' WHERE id='$user_id' LIMIT 1";
+        $sql = "UPDATE Users SET name='$name', email='$email', mobile='$mobile', password='$password' WHERE id='$user_id' ";
         $result = $this->conn->query($sql);
         if($result){
             return true;
@@ -72,13 +72,37 @@ class UserController
     public function delete($id)
     {
         $user_id = mysqli_real_escape_string($this->conn,$id);
-        $sql = "DELETE FROM Users WHERE id='$user_id' LIMIT 1";
+        $sql = "DELETE FROM Users WHERE id='$user_id' ";
         $result = $this->conn->query($sql);
         if($result){
             return true;
         }else{
             return false;
         }
+    }
+
+    public function upload_image($inputData){
+        $image = $_FILES['image'];
+          $imageFileName = $image['name'];
+        //   $imageFileError = $image['error'];
+          $imageFileTemp = $image['tmp_name'];
+          $fileName_seprate = explode('.',$imageFileName);
+          $file_extension = strtolower(end($fileName_seprate));
+          $extension = array('jpg','jpeg','png');
+
+          if(in_array($file_extension , $extension)){
+                $uploade_image = 'images/'.$imageFileName;
+                move_uploaded_file($imageFileTemp , $uploade_image);
+                $result = $this->insertInDatabase($inputData ,$uploade_image );
+                if($result)
+                {
+                    header("Location: index.php");
+                }
+                else
+                {
+                    echo "User can not saved";
+                }   
+        } 
     }
 }
 

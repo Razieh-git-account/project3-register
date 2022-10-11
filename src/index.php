@@ -19,21 +19,22 @@
     </div>
     <div class="mt-2 ">
         <button  type="button" class="btn btn-secondary  text-capitalize mb-5" title="برای جستجو کردن آیتم مورد نظر کلیک کنید">
-            <a href="search.php" class="text-light " > .....Search Data </a>
+            <a href="search.php" class="text-light " > Search Data..... </a>
         </button>
     </div>
  
 
     <div class="table-striped">
         <table class="table table-bordered">
-        <thead >
-            <tr class="center">
+        <thead>
+            <tr class="text-center">
             <th scope="col">شماره</th>
             <th scope="col">نام کاربری</th>
             <th scope="col">ایمیل</th>
             <th scope="col">موبایل</th>
             <th scope="col">پسورد</th>
             <th scope="col">عکس</th>
+            <th scope="col">علاقه مندی</th>
             <th scope="col">ویرایش</th>
             <th scope="col">حذف</th>
             </tr>
@@ -53,6 +54,7 @@
                     $mobile = $row['mobile'];
                     $password = $row['password'];
                     $image = $row['image'];
+                    $chechboxData = $row['checkboxData'];
                  echo   
                 '<tr>
                     <td class="align-middle">'.$id.'</td>
@@ -60,7 +62,9 @@
                     <td class="align-middle">'.$email.'</td>
                     <td class="align-middle">'.$mobile.'</td>
                     <td class="align-middle">'.$password.'</td>
+                   
                     <td class="align-middle"> <img src='.$image.' /> </td>
+                    <td class="align-middle">'.$chechboxData.'</td>
                     <td class="align-middle">
                         <a href="update.php?id='.$id.'" class="btn btn-success">Update</a>
                     </td>
