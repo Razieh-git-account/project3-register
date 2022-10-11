@@ -17,12 +17,15 @@
           $user_id = mysqli_real_escape_string($db->conn, $_GET['id']);
           $user = new UserController;
           $result = $user->edit($user_id);
-
+          $gender = $result['gender'];
+          $edu = $result['education'];
+       
+          $checkData = explode(",", $result['checkboxData']);
           if($result)
           {
               ?>
 
-        <form class="white  z-depth-3" id="users" action="code.php" method="POST"  >
+        <form id="users" action="code.php" method="POST"  enctype="multipart/form-data" >
             <input type="hidden" name="user_id" value="<?=$result['id']?>">
             <input type="text" class="input" name="name" value="<?=$result['name']?>" >
             <div class="red-text"> <?php  echo $errors['name'] ?? '' ?> </div>
@@ -35,22 +38,108 @@
 
             <input type="password" class="input" name="password" value="<?=$result['password']?>">
             <div class="red-text"> <?php echo $errors['password'] ?? '' ?> </div>
-            <br>
+            <div class="my-3"> Gender :
+                <input type="radio"  name="gender" value="male"
+                <?php
+                    if($gender == "male"){
+                        echo "checked";
+                    }
+                ?>
+                >Male
+                <input type="radio"  name="gender" value="female"
+                <?php
+                    if($gender == "female"){
+                        echo "checked";
+                    }
+                ?>
+                >Female
+               
+                <select name="education" style="margin-left:90px;" >
+                    <option value="Select Degree">Select Degree</option>
+                    <option value="Primary School"  
+                    <?php
+                        if($edu =="Primary School" ){
+                            echo "selected";
+                        }
+                    ?>
+                    >Primary School</option>
+                    <option value="High School"   
+                    <?php
+                        if($edu =="High School" ){
+                            echo "selected";
+                        }
+                    ?>
+                    >High School</option>
+                    <option value="Diplom" 
+                    <?php
+                        if($edu =="Diplom" ){
+                            echo "selected";
+                        }
+                    ?>
+                    >Diplom</option>
+                    <option value="Bachelor" 
+                    <?php
+                        if($edu =="Bachelor" ){
+                            echo "selected";
+                        }
+                    ?>
+                    >Bachelor</option>
+                    <option value="Master" 
+                    <?php
+                        if($edu =="Master" ){
+                            echo "selected";
+                        }
+                    ?>
+                    >Master</option>
+                </select>
+            </div>
+
             <div> Favorite Language: 
-                <input type="checkbox"  name="data[]" value="Latin"> Latin
-                <input type="checkbox"  name="data[]" value="Persian"> Persian
-                <input type="checkbox"  name="data[]" value="Arabic"> Arabic
-                <input type="checkbox"  name="data[]" value="Turkey"> Turkey
-                <input type="checkbox"  name="data[]" value="Germany"> Germany
+                <input type="checkbox"  name="data[]" value="Latin"
+                <?php
+                    if(in_array("Latin", $checkData)){
+                        echo "checked";
+                    }
+                ?>
+                > Latin
+                <input type="checkbox"  name="data[]" value="Persian"
+                <?php
+                    if(in_array("Persian", $checkData)){
+                        echo "checked";
+                    }
+                ?>
+                > Persian
+                <input type="checkbox"  name="data[]" value="Arabic"
+                <?php
+                    if(in_array("Arabic", $checkData)){
+                        echo "checked";
+                    }
+                ?>
+                > Arabic
+                <input type="checkbox"  name="data[]" value="Turkey"
+                <?php
+                    if(in_array("Turkey", $checkData)){
+                        echo "checked";
+                    }
+                ?>
+                > Turkey
+                <input type="checkbox"  name="data[]" value="Germany"
+                <?php
+                    if(in_array("Germany", $checkData)){
+                        echo "checked";
+                    }
+                ?>
+                > Germany
             </div>
-            <br>
-            <div class="img">
-                <label for=""> Choose your picture... </label>
+            
+            <div class="img my-2">
+                <label for="image"> Choose your picture... </label>
                 <input type="file" name="image" >
+                <img src="<?=$result['image']?>" width=70px;>
             </div>
-            <div class="center">
-                <input type="submit" name="update_user" value="Update" class="btn btn-info my-2 ">
-                <a href="index.php" class="btn btn-danger my-2 mx-3"> Cancel </a>
+            <div class="text-center">
+                <input type="submit" name="update_user" value="Update" class="btn btn-info  ">
+                <a href="index.php" class="btn btn-danger  mx-3"> Cancel </a>
             </div>
             
         </form>
