@@ -12,8 +12,10 @@ include_once('DB/Database.php');
 </head>
 <body style="background :#ffe0b2;">
     <div class="container">
-       <div class="my-5 mt-2">
-            <p class="h3 text-center p-2 mb-4">عنوان جستجو را وارد کنید</p>
+        <div class="h4 pb-4 text-center my-5 text-danger border-bottom border-danger">
+                Search by (( User Name, Email , Gender , Favorite Language , Mobile ))
+        </div>
+        <div class="my-5 mt-2 text-center">
             <form method="post">
                 <input type="text" class="w-75 p-2 mt-4" placeholder="Search data" name="search_item">
                 <input type="submit" class="btn btn-dark p-2" name="search" value="Search">
@@ -22,8 +24,8 @@ include_once('DB/Database.php');
        </div>
     </div>
 
-    <div class="container my-5 w-75" >
-        <table class="table table-hover align-middle" style="direction:rtl;">
+    <div class="container my-5 w-75 table-striped" >
+        <table class="table table-hover align-middle >
         
         <?php
         if(isset($_POST['search'])){
@@ -34,13 +36,14 @@ include_once('DB/Database.php');
             if($result){
                 if(mysqli_num_rows($result)>0){
                     echo
-                    '<thead >
+                    '<thead class="text-center" >
                         <tr class="text-center">
-                            <th scope="col">شماره</th>
-                            <th scope="col">نام کاربری</th>
-                            <th scope="col">ایمیل</th>
-                            <th scope="col">موبایل</th>
-                            <th scope="col">علاقه مندی</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">User Name </th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Favorite Language </th>
+                            <th scope="col"> Gender </th>
                         </tr>
                     </thead>';
                     while($row = mysqli_fetch_assoc($result)){
@@ -49,6 +52,7 @@ include_once('DB/Database.php');
                         $email = $row['email'];
                         $mobile = $row['mobile'];
                         $chechboxData = $row['checkboxData'];
+                        $gender = $row['gender'];
                      
                         echo 
                         '<tbody>
@@ -60,6 +64,7 @@ include_once('DB/Database.php');
                                 <td class="align-middle">'.$email.'</td> 
                                 <td class="align-middle">'.$mobile.'</td> 
                                 <td class="align-middle">'.$chechboxData.'</td> 
+                                <td class="align-middle">'.$gender.'</td> 
                             </tr>
                         </tbody>';
                     }

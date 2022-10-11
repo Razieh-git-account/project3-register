@@ -7,7 +7,9 @@
 <html lang="en">
 <?php include_once('templates/header.php'); ?>
 <section class="container ">
-		<h4 >ویرایش  کاربر</h4>
+    <div class="h4 pb-4 text-center my-5 text-danger border-bottom border-danger">
+            Edit Exist User
+    </div>
     <?php
       if(isset($_GET['id']))
       {
@@ -47,7 +49,8 @@
                 <input type="file" name="image" >
             </div>
             <div class="center">
-                <input type="submit" name="update_user" value="Update" class="btn btn-danger my-2 ">
+                <input type="submit" name="update_user" value="Update" class="btn btn-info my-2 ">
+                <a href="index.php" class="btn btn-danger my-2 mx-3"> Cancel </a>
             </div>
             
         </form>

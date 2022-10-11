@@ -32,7 +32,9 @@
                     <p class="text-danger text-center"> Your email is : '.$row['email'].'</p>
                     <p class="text-dark text-center"> Your mobile is : '.$row['mobile'].'</p>
                     <p class="text-secondary text-center"> Your password is : '.$row['password'].'</p>
-                    <p class="text-dark text-center"> Your Favorrite Languages are : '.$row['checkboxData'].'</p>
+                    <p class="text-danger text-center"> Your Favorrite Languages are : '.$row['checkboxData'].'</p>
+                    <p class="text-dark text-center"> Your Gender is : '.$row['gender'].'</p>
+                    <p class="text-info text-center"> Your Degree is : '.$row['education'].'</p>
                     <hr class="my-4">
                     <p class="lead"><a class="btn btn-dark btn-lg text-white text-decoration-none" href="search.php" role="button"> Back </a> </p>
                 </div>

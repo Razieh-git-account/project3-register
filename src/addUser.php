@@ -28,8 +28,10 @@
 <html lang="en">
 <?php include_once('templates/header.php'); ?>
 <div class="container">
-		<h4 >اضافه کردن کاربر</h4>
-      
+    <div class="h4 pb-4 text-center my-5 text-danger border-bottom border-danger">
+            Add New User
+    </div>
+        
         <form  id="users" action="addUser.php" method="POST" enctype="multipart/form-data"  >
             
             <input type="text" class="input" name="name" value="<?php echo htmlspecialchars($_POST['name']) ?? ''; ?>" placeholder="Enter your Name...">
@@ -57,7 +59,8 @@
                 <input type="file" name="image" >
             </div>
             <div class="center">
-                <input type="submit" name="save_user" value="Register" class="btn btn-danger my-2 ">
+                <input type="submit" name="save_user" value="Register" class="btn btn-success my-2 ">
+                <a href="index.php" class="btn btn-danger my-2 mx-3"> Cancel </a>
             </div>
             
         </form>
