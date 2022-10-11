@@ -26,7 +26,7 @@
          Show All Users
     </div>
     <div class="table-striped">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-hover">
         <thead>
             <tr class="text-center">
             <th scope="col">Id</th>

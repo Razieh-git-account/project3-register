@@ -31,7 +31,8 @@ include_once('DB/Database.php');
         if(isset($_POST['search'])){
             $search = $_POST['search_item'];
             $db = new Database;
-            $sql = "SELECT * FROM Users WHERE email like '%$search%' OR name like '%$search%' OR mobile like '%$search%'  OR checkboxData like '%$search%'";
+            $sql = "SELECT * FROM Users WHERE email like '%$search%' OR name like '%$search%' 
+            OR mobile like '%$search%'  OR checkboxData like '%$search%' OR gender='$search'";
             $result = $db->conn->query($sql);
             if($result){
                 if(mysqli_num_rows($result)>0){
