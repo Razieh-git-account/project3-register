@@ -45,7 +45,7 @@ session_start();
                     </button>           
                 </div>
                 <?php
-                // unset($_SESSION['status']);
+                unset($_SESSION['status']);
            } 
            ?>
         <form  id="users" action="addUser.php" method="POST" enctype="multipart/form-data"  >

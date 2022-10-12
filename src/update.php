@@ -152,7 +152,7 @@ session_start();
                 <label for="image"> Choose your picture... </label>
                 <input type="file" name="new_image" >
                 <img src="<?php echo "images/".$result['image']; ?>" width="70px" height="70px" style="margin-left:-60px;">
-                <input type="text" name="old_image" value="<?php echo $result['image']; ?>">
+                <input type="hidden" name="old_image" value="<?php echo $result['image']; ?>">
             </div>
             <div class="text-center">
                 <input type="submit" name="update_user" value="Update" class="btn btn-info  ">

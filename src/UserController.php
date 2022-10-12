@@ -47,10 +47,10 @@ class UserController
                 $result = mysqli_query($this->conn , $sql); 
                 if($result){
                     move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$_FILES["image"]["name"]);
-                    $_SESSION['status'] =  "Image Stored Successfully.";
+                    $_SESSION['status'] =  "Datas Stored Successfully.";
                     header("Location: index.php");
                 }else{
-                    $_SESSION['status'] = "Image Not Inserted.";
+                    $_SESSION['status'] = "Datas Not Inserted.";
                     header("Location: addUser.php");
                 }
             }
@@ -107,10 +107,10 @@ class UserController
                     move_uploaded_file($_FILES["new_image"]["tmp_name"], "images/".$_FILES["new_image"]["name"]);
                     unlink("images/".$old_image);
                 }
-                $_SESSION['status'] = "Image Updated.";
+                $_SESSION['status'] = "Data Updated.";
                 header("Location: index.php");
             }else{
-                $_SESSION['status'] = "Image Not Updated.";
+                $_SESSION['status'] = "Data Not Updated.";
                 header("Location: update.php");
             }
         }
