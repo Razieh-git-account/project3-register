@@ -11,18 +11,24 @@ if(isset($_POST['update_user']))
         'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
         'mobile' => mysqli_real_escape_string($db->conn,$_POST['mobile']),
         'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
+        'datas' => mysqli_real_escape_string($db->conn,implode(",", $_POST['data'])),
+        'gender' => mysqli_real_escape_string($db->conn,$_POST['gender']),
+        'education' => mysqli_real_escape_string($db->conn,$_POST['education']),
+        'new_image' => mysqli_real_escape_string($db->conn,$_FILES['new_image']['name']),
+        'old_image' => mysqli_real_escape_string($db->conn,$_POST['old_image']),
+
     ];
     $user = new UserController;
     $result = $user->update($inputData, $id);
 
-    if($result)
-    {
-        header("Location: index.php");
-    }
-    else
-    {
-        header("Location: update.php");
-    }
+    // if($result)
+    // {
+    //     header("Location: index.php");
+    // }
+    // else
+    // {
+    //     header("Location: update.php");
+    // }
 
 }
 

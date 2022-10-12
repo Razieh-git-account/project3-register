@@ -1,4 +1,5 @@
 <?php 
+session_start();
   include('DB/Database.php');
   include_once('UserController.php');
   include_once('UserValidator.php');
@@ -18,10 +19,11 @@
               'datas' => mysqli_real_escape_string($db->conn,implode(",", $_POST['data'])),
               'gender' => mysqli_real_escape_string($db->conn,$_POST['gender']),
               'education' => mysqli_real_escape_string($db->conn,$_POST['education']),
+              'image' => mysqli_real_escape_string($db->conn,$_FILES['image']['name']),
           ];
 
           $user = new UserController;
-          $user->upload_image($inputData);     
+          $user->insertInDatabase($inputData);     
     }
   }
 ?>
@@ -33,7 +35,13 @@
     <div class="h4 pb-4 text-center my-5 text-danger border-bottom border-danger">
             Add New User
     </div>
-        
+        <?php
+            if($_SESSION['status']){
+                echo '<div class="h4 pb-4 text-center my-5 text-success border-bottom border-success">
+                      '.$_SESSION['status'].'
+                     </div>';
+            }
+        ?>
         <form  id="users" action="addUser.php" method="POST" enctype="multipart/form-data"  >
             
             <input type="text" class="input" name="name" value="<?php echo htmlspecialchars($_POST['name']) ?? ''; ?>" placeholder="Enter your Name...">
