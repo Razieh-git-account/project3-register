@@ -29,25 +29,25 @@ class UserController
         $allData = $inputData['datas'];
         $gender = $inputData['gender'];
         $edu = $inputData['education'];
-        $image = $inputData['image'];
+        // $image = $inputData['image'];
 
+        $fileName = $_FILES["image"]["name"];
         $extension = array('jpg','jpeg','png','gif');
-        $file_extension = pathinfo($image , PATHINFO_EXTENSION );
+        $file_extension = pathinfo($fileName , PATHINFO_EXTENSION );
         if(!in_array($file_extension , $extension)){
             $_SESSION['status'] = "You are allowed with only jpg , jpeg , png , gif ";
             header("Location: addUser.php");
         }else{
-            if(file_exists("images/".$image)){
-                $fileName = $image;
-                $_SESSION['status'] = "Image already exist".$fileName;
+            if(file_exists("images/".$fileName)){
+                $_SESSION['status'] = "Image already exist.";
                 header("Location: addUser.php");
             }else{
                 $sql = "INSERT INTO Users (name, email ,mobile ,password , checkboxData, gender , education ,image) 
-                VALUES ('$name','$email','$mobile','$password', '$allData' ,'$gender' , '$edu' , '$image')";
+                VALUES ('$name','$email','$mobile','$password', '$allData' ,'$gender' , '$edu' , '$fileName')";
                 $result = mysqli_query($this->conn , $sql); 
                 if($result){
                     move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$_FILES["image"]["name"]);
-                    $_SESSION['status'] = "Image Stored Successfully.";
+                    $_SESSION['status'] =  "Image Stored Successfully.";
                     header("Location: index.php");
                 }else{
                     $_SESSION['status'] = "Image Not Inserted.";
@@ -76,7 +76,7 @@ class UserController
 
     public function update($inputData, $id)
     {
-        var_dump($inputData,$id);
+        // var_dump($inputData,$id);
         $user_id = mysqli_real_escape_string($this->conn, $id);
         $name = $inputData['name'];
         $email = $inputData['email'];
@@ -86,43 +86,34 @@ class UserController
         $old_image = $inputData['old_image'];
         $gender = $inputData['gender'];
         $education = $inputData['education'];
-        $alldata = $inputData['datas'];
+        $allData = $inputData['datas'];
     
         if($new_image != ''){
             $update_fileName = $new_image;
         }else{
             $update_fileName = $old_image;
         }
-echo $_FILES["new_image"]["name"] ;
-echo "<br>";
-echo $_FILES["new_image"]["tmp_name"] ;
-echo "<br>";
-echo $update_fileName ;
-echo "<br>";
-echo $old_image;
-echo "<br>";
+
         if(file_exists("images/".$new_image)){
             $fileName=$new_image;
-            echo "file is already exist";
-            // header("Location: update.php");
+            $_SESSION['status'] = "Image ( ".$fileName." ) already exist ";
+            header("Location: update.php");
         }else{
             $sql = "UPDATE Users SET name='$name', email='$email', mobile='$mobile', password='$password' 
-            gender='$gender' , education='$education' , checkboxData='$allData' , image='$update_fileName' WHERE id='$user_id' ";
+            , checkboxData='$allData' ,  gender='$gender' , education='$education', image='$update_fileName' WHERE id='$user_id' ";
             $result = $this->conn->query($sql);
             if($result){
                 if($_FILES["new_image"]["name"] != ''){
-                    move_uploaded_file($_FILES["new_image"]["tmp_name"],"images/".$_FILES["new_image"]["name"]);
+                    move_uploaded_file($_FILES["new_image"]["tmp_name"], "images/".$_FILES["new_image"]["name"]);
                     unlink("images/".$old_image);
                 }
-                echo "Image  updated";
-                // header("Location: index.php");
+                $_SESSION['status'] = "Image Updated.";
+                header("Location: index.php");
             }else{
-                echo "Image Not updated";
-                // header("Location: index.php");
+                $_SESSION['status'] = "Image Not Updated.";
+                header("Location: update.php");
             }
         }
-
-        
         
     }
 

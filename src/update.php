@@ -1,4 +1,5 @@
 <?php 
+session_start();
   require_once('UserController.php');
   include_once('DB/Database.php');
  ?>
@@ -11,6 +12,21 @@
             Edit Exist User
     </div>
     <?php
+            if(isset($_SESSION['status']) && $_SESSION != '' ){
+        ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>  
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>   
+                </div>
+                <button class="btn btn-dark my-3"><a href="index.php" class="text-light">Back</a></button> 
+                <?php
+                unset($_SESSION['status']);
+           } 
+        
+
+   
       if(isset($_GET['id']))
       {
           $db = new Database();
@@ -23,7 +39,7 @@
           $checkData = explode(",", $result['checkboxData']);
           if($result)
           {
-              ?>
+    ?>
 
         <form id="users" action="code.php" method="POST"  enctype="multipart/form-data" >
             <input type="hidden" name="user_id" value="<?=$result['id']?>">
@@ -135,7 +151,7 @@
             <div class="img my-2">
                 <label for="image"> Choose your picture... </label>
                 <input type="file" name="new_image" >
-                <img src="<?php echo $result['image']; ?>" width="70px" height="70px" style="margin-left:-60px;">
+                <img src="<?php echo "images/".$result['image']; ?>" width="70px" height="70px" style="margin-left:-60px;">
                 <input type="text" name="old_image" value="<?php echo $result['image']; ?>">
             </div>
             <div class="text-center">
@@ -150,11 +166,8 @@
               {
                   echo "<h4>No Record Found</h4>";
               }
-          }
-          else
-          {
-              echo "<h4>Something Went Wrong</h4>";
-          }
+    }
+          
           ?>
 </section>
 <br><br>

@@ -1,4 +1,5 @@
 <?php 
+session_start();
  include_once('DB/Database.php'); 
  include_once('UserController.php');
  include_once('templates/header.php');
@@ -12,6 +13,19 @@
     }
 </style>
 <div class="container ">
+    <?php
+            if(isset($_SESSION['status']) && $_SESSION != '' ){
+        ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>  
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>           
+                </div>
+                <?php
+                unset($_SESSION['status']);
+           } 
+           ?>
     <div class=" text-capitalize my-5">
         <button  type="button" class="btn btn-primary  text-capitalize" title="برای اضافه کردن کاربر جدید کلیک کنید"> 
             <a href="addUser.php" class="text-light" > Add New User </a>
@@ -30,8 +44,8 @@
         <thead>
             <tr class="text-center">
             <th scope="col">Id</th>
-            <th scope="col">User Name </th>
             <th scope="col">Image</th>
+            <th scope="col">User Name </th>
             <th scope="col">Email</th>
             <th scope="col">Mobile</th>
             <th scope="col">Gender</th>
@@ -61,8 +75,8 @@
                  echo   
                 '<tr>
                     <td class="align-middle">'.$id.'</td>
+                    <td class="align-middle"> <img src= images/'.$image.' /> </td>
                     <td class="align-middle">'.$name.'</td>
-                    <td class="align-middle"> <img src='.$image.' /> </td>
                     <td class="align-middle">'.$email.'</td>
                     <td class="align-middle">'.$mobile.'</td>
                     <td class="align-middle">'.$gender.'</td>
