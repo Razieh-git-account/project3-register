@@ -46,6 +46,7 @@ session_start();
             <th scope="col">Id</th>
             <th scope="col">Image</th>
             <th scope="col">User Name </th>
+            <th scope="col">Date Birthday </th>
             <th scope="col">Email</th>
             <th scope="col">Mobile</th>
             <th scope="col">Gender</th>
@@ -72,11 +73,13 @@ session_start();
                     $chechboxData = $row['checkboxData'];
                     $gender = $row['gender'];
                     $edu = $row['education'];
+                    $dob = $row['dob'];
                  echo   
                 '<tr>
                     <td class="align-middle">'.$id.'</td>
                     <td class="align-middle"> <img src= images/'.$image.' /> </td>
                     <td class="align-middle">'.$name.'</td>
+                    <td class="align-middle">'.$dob.'</td>
                     <td class="align-middle">'.$email.'</td>
                     <td class="align-middle">'.$mobile.'</td>
                     <td class="align-middle">'.$gender.'</td>

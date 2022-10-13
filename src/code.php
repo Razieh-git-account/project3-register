@@ -21,6 +21,7 @@ if(isset($_POST['update_user']))
             'education' => mysqli_real_escape_string($db->conn,$_POST['education']),
             'new_image' => mysqli_real_escape_string($db->conn,$_FILES['new_image']['name']),
             'old_image' => mysqli_real_escape_string($db->conn,$_POST['old_image']),
+            'dob' => mysqli_real_escape_string($db->conn, date('Y-m-d',strtotime($_POST['date-birthday']))),
 
         ];
      

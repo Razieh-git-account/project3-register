@@ -29,6 +29,7 @@ class UserController
         $allData = $inputData['datas'];
         $gender = $inputData['gender'];
         $edu = $inputData['education'];
+        $dob = $inputData['dob'];
         // $image = $inputData['image'];
 
         $fileName = $_FILES["image"]["name"];
@@ -42,8 +43,8 @@ class UserController
                 $_SESSION['status'] = "Image already exist.";
                 header("Location: addUser.php");
             }else{
-                $sql = "INSERT INTO Users (name, email ,mobile ,password , checkboxData, gender , education ,image) 
-                VALUES ('$name','$email','$mobile','$password', '$allData' ,'$gender' , '$edu' , '$fileName')";
+                $sql = "INSERT INTO `Users` (name,  dob , email ,mobile ,password ,  checkboxData, gender , education ,image) 
+                VALUES ('$name', '$dob' ,'$email','$mobile','$password', '$allData' ,'$gender' , '$edu' , '$fileName')";
                 $result = mysqli_query($this->conn , $sql); 
                 if($result){
                     move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$_FILES["image"]["name"]);
@@ -86,6 +87,7 @@ class UserController
         $gender = $inputData['gender'];
         $education = $inputData['education'];
         $allData = $inputData['datas'];
+        $dob = $inputData['dob'];
     
         if($new_image != ''){
             $update_fileName = $new_image;
@@ -98,7 +100,7 @@ class UserController
             $_SESSION['status'] = "Image ( ".$fileName." ) already exist ";
             header("Location: update.php");
         }else{
-            $sql = "UPDATE Users SET name='$name', email='$email', mobile='$mobile', password='$password' 
+            $sql = "UPDATE `Users` SET name='$name', dob='$dob' , email='$email', mobile='$mobile', password='$password' 
             , checkboxData='$allData' ,  gender='$gender' , education='$education', image='$update_fileName' WHERE id='$user_id' ";
             $result = $this->conn->query($sql);
             if($result){

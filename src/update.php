@@ -54,6 +54,11 @@ session_start();
 
             <input type="password" class="input" name="password" value="<?=$result['password']?>">
             <div class="red-text"> <?php echo $errors['password'] ?? '' ?> </div>
+
+            <div > Date of Birthday :
+                <input type="date" name="date-birthday"  value="<?=$result['dob']?>" style="width:373px; padding:6px; margin:5px 0 3px 0;" >
+            </div>
+
             <div class="my-3"> Gender :
                 <input type="radio"  name="gender" value="male"
                 <?php
