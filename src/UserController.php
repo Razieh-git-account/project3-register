@@ -74,10 +74,9 @@ class UserController
         }
     }
 
-    public function update($inputData, $id)
+    public function update($inputData)
     {
-        // var_dump($inputData,$id);
-        $user_id = mysqli_real_escape_string($this->conn, $id);
+        $user_id = $inputData['id'];
         $name = $inputData['name'];
         $email = $inputData['email'];
         $mobile = $inputData['mobile'];
