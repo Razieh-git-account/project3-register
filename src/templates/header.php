@@ -17,13 +17,15 @@
             text-align:center;
             border-radius:10px;
             box-shadow: -6px 8px 8px 12px #e9b97480;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         
         }
 
         #users .input{
             padding: 8px;
             width: 500px;
             margin: 5px 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
         }
        
         h4{

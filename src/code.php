@@ -40,7 +40,7 @@ if(isset($_POST['deleteUser']))
     $result = $user->delete($id);
     if($result)
     {
-        header("Location: index.php");
+        header("Location: display.php");
     }
     else
     {

@@ -25,31 +25,31 @@ class UserController
         $name = $inputData['name'];
         $email = $inputData['email'];
         $mobile = $inputData['mobile'];
-        $password = md5($inputData['password']);
+        $password = $inputData['password'];
         $allData = $inputData['datas'];
         $gender = $inputData['gender'];
         $edu = $inputData['education'];
         $dob = $inputData['dob'];
-        // $image = $inputData['image'];
+        $image = $inputData['image'];
 
         $fileName = $_FILES["image"]["name"];
         $extension = array('jpg','jpeg','png','gif');
-        $file_extension = pathinfo($fileName , PATHINFO_EXTENSION );
+        $file_extension = pathinfo($image , PATHINFO_EXTENSION );
         if(!in_array($file_extension , $extension)){
             $_SESSION['status'] = "You are allowed with only jpg , jpeg , png , gif ";
             header("Location: addUser.php");
         }else{
-            if(file_exists("images/".$fileName)){
+            if(file_exists("images/".$image)){
                 $_SESSION['status'] = "Image already exist.";
                 header("Location: addUser.php");
             }else{
-                $sql = "INSERT INTO `Users` (name,  dob , email ,mobile ,password ,  checkboxData, gender , education ,image) 
-                VALUES ('$name', '$dob' ,'$email','$mobile','$password', '$allData' ,'$gender' , '$edu' , '$fileName')";
+                $sql = "INSERT INTO `Users` (name,email,mobile,password,dob,checkboxData,gender,education,image) 
+                VALUES ('$name','$email','$mobile','$password','$dob','$allData','$gender','$edu','$image')";
                 $result = mysqli_query($this->conn , $sql); 
                 if($result){
                     move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$_FILES["image"]["name"]);
                     $_SESSION['status'] =  "Datas Stored Successfully.";
-                    header("Location: index.php");
+                    header("Location: display.php");
                 }else{
                     $_SESSION['status'] = "Datas Not Inserted.";
                     header("Location: addUser.php");
@@ -81,7 +81,7 @@ class UserController
         $name = $inputData['name'];
         $email = $inputData['email'];
         $mobile = $inputData['mobile'];
-        $password = md5($inputData['password']);
+        $password = $inputData['password'];
         $new_image = $inputData['new_image'];
         $old_image = $inputData['old_image'];
         $gender = $inputData['gender'];
@@ -94,27 +94,27 @@ class UserController
         }else{
             $update_fileName = $old_image;
         }
-
-        if(file_exists("images/".$new_image)){
-            $fileName=$new_image;
-            $_SESSION['status'] = "Image ( ".$fileName." ) already exist ";
-            header("Location: update.php");
-        }else{
-            $sql = "UPDATE `Users` SET name='$name', dob='$dob' , email='$email', mobile='$mobile', password='$password' 
-            , checkboxData='$allData' ,  gender='$gender' , education='$education', image='$update_fileName' WHERE id='$user_id' ";
-            $result = $this->conn->query($sql);
-            if($result){
-                if($_FILES["new_image"]["name"] != ''){
-                    move_uploaded_file($_FILES["new_image"]["tmp_name"], "images/".$_FILES["new_image"]["name"]);
-                    unlink("images/".$old_image);
-                }
-                $_SESSION['status'] = "Data Updated.";
-                header("Location: index.php");
-            }else{
-                $_SESSION['status'] = "Data Not Updated.";
+     
+            if(file_exists("images/".$new_image)){
+                $fileName=$new_image;
+                $_SESSION['status'] = "Image ( ".$fileName." ) already exist ";
                 header("Location: update.php");
+            }else{
+                $sql = "UPDATE `Users` SET name='$name', email='$email', mobile='$mobile', password='$password' , dob='$dob'
+                , checkboxData='$allData' ,  gender='$gender' , education='$education', image='$update_fileName' WHERE id='$user_id' ";
+                $result = $this->conn->query($sql);
+                if($result){
+                    if($_FILES["new_image"]["name"] != ''){
+                        move_uploaded_file($_FILES["new_image"]["tmp_name"], "images/".$_FILES["new_image"]["name"]);
+                        unlink("images/".$old_image);
+                    }
+                    $_SESSION['status'] = "Data Updated.";
+                    header("Location: display.php");
+                }else{
+                    $_SESSION['status'] = "Data Not Updated.";
+                    header("Location: update.php");
+                }
             }
-        }
         
     }
 

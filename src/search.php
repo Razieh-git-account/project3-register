@@ -19,7 +19,7 @@ include_once('DB/Database.php');
             <form method="post">
                 <input type="text" class="w-75 p-2 mt-4" placeholder="Search data" name="search_item">
                 <input type="submit" class="btn btn-dark p-2" name="search" value="Search">
-                <button class="btn btn-dark p-2" ><a href="index.php" class="text-white text-decoration-none" role="button"> Back </a></button>
+                <button class="btn btn-dark p-2" ><a href="display.php" class="text-white text-decoration-none" role="button"> Back </a></button>
             </form>
        </div>
     </div>

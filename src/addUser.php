@@ -93,7 +93,7 @@ session_start();
             </div>
             <div class="center">
                 <input type="submit" name="save_user" value="Register" class="btn btn-success my-2 ">
-                <a href="index.php" class="btn btn-danger my-2 mx-3"> Cancel </a>
+                <a href="display.php" class="btn btn-danger my-2 mx-3"> Cancel </a>
             </div>
             
         </form>

@@ -52,7 +52,7 @@ session_start();
             <input type="text" class="input" name="mobile" value="<?=$result['mobile']?>" >
             <div class="red-text"> <?php echo $errors['mobile'] ?? '' ?> </div>
 
-            <input type="password" class="input" name="password" value="<?=$result['password']?>">
+            <input type="text" class="input" name="password" value="<?=$result['password']?>">
             <div class="red-text"> <?php echo $errors['password'] ?? '' ?> </div>
 
             <div > Date of Birthday :
@@ -75,7 +75,7 @@ session_start();
                 ?>
                 >Female
                
-                <select name="education" style="margin-left:90px;" >
+                <select name="education" style="margin-left:10px; width:310px; padding:6px;" >
                     <option value="Select Degree">Select Degree</option>
                     <option value="Primary School"  
                     <?php
@@ -161,7 +161,7 @@ session_start();
             </div>
             <div class="text-center">
                 <input type="submit" name="update_user" value="Update" class="btn btn-info  ">
-                <a href="index.php" class="btn btn-danger  mx-3"> Cancel </a>
+                <a href="display.php" class="btn btn-danger  mx-3"> Cancel </a>
             </div>
             
         </form>
