@@ -11,7 +11,7 @@ class UserController
 
     public function readFromDatabase()
     {
-        $studentQuery = "SELECT * FROM Users";
+        $studentQuery = "SELECT * FROM Users WHERE userType='user'";
         $result = $this->conn->query($studentQuery);
         if($result->num_rows > 0){
             return $result; 
@@ -31,6 +31,7 @@ class UserController
         $edu = $inputData['education'];
         $dob = $inputData['dob'];
         $image = $inputData['image'];
+        $user = 'user';
 
         $fileName = $_FILES["image"]["name"];
         $extension = array('jpg','jpeg','png','gif');
@@ -43,8 +44,8 @@ class UserController
                 $_SESSION['status'] = "Image already exist.";
                 header("Location: addUser.php");
             }else{
-                $sql = "INSERT INTO `Users` (name,email,mobile,password,dob,checkboxData,gender,education,image) 
-                VALUES ('$name','$email','$mobile','$password','$dob','$allData','$gender','$edu','$image')";
+                $sql = "INSERT INTO `Users` (name,email,mobile,password,dob,checkboxData,gender,education,image,userType) 
+                VALUES ('$name','$email','$mobile','$password','$dob','$allData','$gender','$edu','$image','$user')";
                 $result = mysqli_query($this->conn , $sql); 
                 if($result){
                     move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$_FILES["image"]["name"]);
@@ -134,17 +135,15 @@ class UserController
     {
         $email = $inputData['email'];
         $password = $inputData['password'];
-        $sql = " SELECT * FROM Users WHERE email ='$email' && password ='$password' ";
-        $result = mysqli_query($this->conn , $sql);
-
+        $sql = "SELECT * FROM `Users` WHERE email ='$email' AND password ='$password' ";
+        $result = $this->conn->query($sql);
         if($result->num_rows == 1){
-            // echo "Login Ok";
-            $_SESSION['status'] = "Login OK";
-            header("Location: display.php");
+            $data = $result->fetch_assoc();
+            return $data;
         }else{
-            $_SESSION['status'] = "Login Failed";
-            header("Location: index.php");
+            return false;
         }
+            
     }
 
 

@@ -41,7 +41,7 @@ session_start();
     </div>
  
     <div class="h4 pb-4 text-center mb-5 text-danger border-bottom border-danger">
-         Show Users Logged In
+         Show All Users
     </div>
     <div class="table-striped">
         <table class="table table-bordered table-hover">
@@ -63,27 +63,21 @@ session_start();
         
         <tbody>
         <?php
-           if(isset($_POST['login'])){
-            // $email = $_POST['email'];
-            // $password = $_POST['password'];
-            $db = new Database();
-            $inputData = [
-                'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
-                'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
-            ];
-            $user = new UserController;
-            $result = $user->login($inputData);
-        
-            if($result){
-                    $id = $result['id'];
-                    $name = $result['name'];
-                    $email = $result['email'];
-                    $mobile = $result['mobile'];
-                    $image = $result['image'];
-                    $chechboxData = $result['checkboxData'];
-                    $gender = $result['gender'];
-                    $edu = $result['education'];
-                    $dob = $result['dob'];
+    $users = new UserController;
+    $result = $users->readFromDatabase();
+        if($result) {
+            foreach($result as $row) {
+                ?>
+                <?php
+                    $id = $row['id'];
+                    $name = $row['name'];
+                    $email = $row['email'];
+                    $mobile = $row['mobile'];
+                    $image = $row['image'];
+                    $chechboxData = $row['checkboxData'];
+                    $gender = $row['gender'];
+                    $edu = $row['education'];
+                    $dob = $row['dob'];
                  echo   
                 '<tr>
                     <td class="align-middle">'.$id.'</td>
@@ -107,11 +101,10 @@ session_start();
                     </td>
                 </tr>';
                 
-            
+            }
         } else {
             echo "No Record Found";
         }
-    }
         ?>
         </tbody>
         </table>

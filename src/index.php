@@ -1,18 +1,5 @@
 <?php 
 session_start();
-    include('DB/Database.php');
-    include_once('UserController.php');
-    if(isset($_POST['login'])){
-        // $email = $_POST['email'];
-        // $password = $_POST['password'];
-        $db = new Database();
-        $inputData = [
-            'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
-            'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
-        ];
-        $user = new UserController;
-        $user->login($inputData);
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +21,7 @@ session_start();
                 unset($_SESSION['status']);
            } 
            ?>
-            <form action="index.php" method="POST" class="border border-dark w-50 " id="users" autocomplete="off">
+            <form action="display.php" method="POST" class="border border-dark w-50 " id="users" autocomplete="off">
                 <div class="my-4 ">
                     <label for="email" class="form-label ">Enter your Email address</label>
                     <input type="text"  name="email" class="form-control p-2" value="<?php echo htmlspecialchars($_POST['email']) ?? ''; ?>" >
@@ -46,7 +33,7 @@ session_start();
                 <div class="my-4">
                     <input type="submit" class="btn btn-info w-50" name="login" value="Login" style="font-size:20px;" >
                 </div>
-                <div> New User?
+                <div class="my-4">Do You Want To Create New User?
                     <a href="addUser.php" class="text-info">SignUp Here</a>
                 </div>
             </form>
