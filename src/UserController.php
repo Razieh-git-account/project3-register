@@ -129,6 +129,23 @@ class UserController
             return false;
         }
     }
+    
+    public function login($inputData)
+    {
+        $email = $inputData['email'];
+        $password = $inputData['password'];
+        $sql = " SELECT * FROM Users WHERE email ='$email' && password ='$password' ";
+        $result = mysqli_query($this->conn , $sql);
+
+        if($result->num_rows == 1){
+            // echo "Login Ok";
+            $_SESSION['status'] = "Login OK";
+            header("Location: display.php");
+        }else{
+            $_SESSION['status'] = "Login Failed";
+            header("Location: index.php");
+        }
+    }
 
 
     

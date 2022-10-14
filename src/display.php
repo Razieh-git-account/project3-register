@@ -31,12 +31,12 @@ session_start();
             <a href="addUser.php" class="text-light" > Add New User </a>
         </button> -->
     
-        <button  type="button" class="btn btn-secondary mx-5 " title="برای جستجو کردن آیتم مورد نظر کلیک کنید">
+        <button  type="button" class="btn btn-secondary mx-5 " >
             <a href="search.php" class="text-light " > Search Data..... </a>
         </button>
 
-        <button  type="button" class="btn btn-success " title="برای جستجو کردن آیتم مورد نظر کلیک کنید">
-            <a href="login.php" class="text-light " > Login Form..... </a>
+        <button  type="button" class="btn btn-success " >
+            <a href="login.php" class="text-light " > Logout Form..... </a>
         </button>
     </div>
  

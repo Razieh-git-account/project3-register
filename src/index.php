@@ -1,13 +1,18 @@
 <?php 
- include('DB/Database.php');
- include_once('UserController.php');
-
- if(isset($_POST['login'])){
-   $email = $_POST['email'];
-   $password = $_POST['password'];
-
-   
- }
+session_start();
+    include('DB/Database.php');
+    include_once('UserController.php');
+    if(isset($_POST['login'])){
+        // $email = $_POST['email'];
+        // $password = $_POST['password'];
+        $db = new Database();
+        $inputData = [
+            'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
+            'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
+        ];
+        $user = new UserController;
+        $user->login($inputData);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,14 +21,27 @@
         <div class="h4 pb-4 text-center my-5 text-danger border-bottom border-danger">
                 Login Form
         </div>
-            <form action="searchData.php" method="post" class="border border-dark w-50 " id="users">
+        <?php
+            if(isset( $_SESSION['status']) && $_SESSION != '' ){
+        ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>  
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>           
+                </div>
+                <?php
+                unset($_SESSION['status']);
+           } 
+           ?>
+            <form action="index.php" method="POST" class="border border-dark w-50 " id="users" autocomplete="off">
                 <div class="my-4 ">
                     <label for="email" class="form-label ">Enter your Email address</label>
-                    <input type="text"  name="email" class="form-control p-2" >
+                    <input type="text"  name="email" class="form-control p-2" value="<?php echo htmlspecialchars($_POST['email']) ?? ''; ?>" >
                 </div>
                 <div class="my-4 ">
                     <label for="password" class="form-label ">Enter your password</label>
-                    <input type="password" class="form-control p-2" >
+                    <input type="text" class="form-control p-2" name="password" value="<?php echo htmlspecialchars($_POST['password']); ?>"  >
                 </div>
                 <div class="my-4">
                     <input type="submit" class="btn btn-info w-50" name="login" value="Login" style="font-size:20px;" >
