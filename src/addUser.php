@@ -37,18 +37,9 @@ session_start();
             Add New User
     </div>
         <?php
-            if(isset( $_SESSION['status']) && $_SESSION != '' ){
+            include_once('message.php');
         ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>  
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>           
-                </div>
-                <?php
-                unset($_SESSION['status']);
-           } 
-           ?>
+               
         <form  id="users" action="addUser.php" method="POST" enctype="multipart/form-data"  >
             
             <input type="text" class="input" name="name" value="<?php echo htmlspecialchars($_POST['name']) ?? ''; ?>" placeholder="Enter your Name...">

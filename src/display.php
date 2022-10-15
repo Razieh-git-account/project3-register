@@ -14,108 +14,50 @@ session_start();
 </style>
 <div class="container ">
     <?php
-            if(isset($_SESSION['status']) && $_SESSION != '' ){
-        ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>  
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>           
-                </div>
-                <?php
-                unset($_SESSION['status']);
-           } 
-           ?>
-    <div class=" text-capitalize my-5">
-        <!-- <button  type="button" class="btn btn-primary  text-capitalize" title="برای اضافه کردن کاربر جدید کلیک کنید"> 
-            <a href="addUser.php" class="text-light" > Add New User </a>
-        </button> -->
-    
-        <button  type="button" class="btn btn-secondary mx-5 " >
-            <a href="search.php" class="text-light " > Search Data..... </a>
-        </button>
-
-        <button  type="button" class="btn btn-dark " >
-            <a href="index.php" class="text-light " > Logout Form..... </a>
-        </button>
-    </div>
- 
-    <div class="h4 pb-4 text-center mb-5 text-danger border-bottom border-danger">
+        include_once('message.php');
+    ?>
+    <div class="h4 pb-4 text-center my-3 text-danger border-bottom border-danger">
          Show Users Logged In
     </div>
-    <div class="table-striped">
-        <table class="table table-bordered table-hover">
-        <thead>
-            <tr class="text-center">
-            <th scope="col">Id</th>
-            <th scope="col">Image</th>
-            <th scope="col">User Name </th>
-            <th scope="col">Date Birthday </th>
-            <th scope="col">Email</th>
-            <th scope="col">Mobile</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Degree</th>
-            <th scope="col">Favorite Language </th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        
-        <tbody>
         <?php
-           if(isset($_POST['login'])){
-            // $email = $_POST['email'];
-            // $password = $_POST['password'];
             $db = new Database();
-            $inputData = [
-                'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
-                'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
-            ];
             $user = new UserController;
-            $result = $user->login($inputData);
-        
+            $result = $user->readOnceUserFromDatabase($_SESSION['email'],$_SESSION['password']);
+            $id = $result['id'];
             if($result){
-                    $id = $result['id'];
-                    $name = $result['name'];
-                    $email = $result['email'];
-                    $mobile = $result['mobile'];
-                    $image = $result['image'];
-                    $chechboxData = $result['checkboxData'];
-                    $gender = $result['gender'];
-                    $edu = $result['education'];
-                    $dob = $result['dob'];
-                 echo   
-                '<tr>
-                    <td class="align-middle">'.$id.'</td>
-                    <td class="align-middle"> <img src= images/'.$image.' /> </td>
-                    <td class="align-middle">'.$name.'</td>
-                    <td class="align-middle">'.$dob.'</td>
-                    <td class="align-middle">'.$email.'</td>
-                    <td class="align-middle">'.$mobile.'</td>
-                    <td class="align-middle">'.$gender.'</td>
-                    <td class="align-middle">'.$edu.'</td>
-                    <td class="align-middle">'.$chechboxData.'</td>
-                    <td class="align-middle">
-                        <a href="update.php?id='.$id.'" class="btn btn-success">Update</a>
-                    </td>
-
-                    <td class="align-middle">
-                        <form action="code.php" method="POST">
-                        <br>
-                            <button type="submit" name="deleteUser" value="'.$id.'" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>';
-                
-            
+                    echo 
+                    '<div class="container">
+                        <div class="jumbotron ">
+                            <h1 class="display-5  text-center text-success mb-2">'.$result['name'].'</h1>
+                            <p class=" text-primary  text-center"> Your image is...   <img src=images/'.$result['image'].' class="rounded-3" /> </p>
+                            <p class="text-danger text-center"> Your email is : '.$result['email'].'</p>
+                            <p class="text-dark text-center"> Your mobile is : '.$result['mobile'].'</p>
+                            <p class="text-secondary text-center"> Your password is : '.$result['password'].'</p>
+                            <p class="text-success text-center"> Your birthday is : '.$result['dob'].'</p>
+                            <p class="text-danger text-center"> Your Favorrite Languages are : '.$result['checkboxData'].'</p>
+                            <p class="text-dark text-center"> Your Gender is : '.$result['gender'].'</p>
+                            <p class="text-info text-center"> Your Degree is : '.$result['education'].'</p>
+                            <hr class="my-2">
+                            <p class="lead text-center mt-5">
+                                <a class="btn btn-success btn-lg text-white text-decoration-none w-25" href="update.php?id='.$id.'" role="button"> Edit </a> 
+                                <a class="btn btn-danger btn-lg text-white text-decoration-none w-25 mx-5" href="index.php" role="button"> Logout </a> 
+                            </p>
+                        </div>
+                    </div>';
         } else {
             echo "No Record Found";
         }
-    }
+  
         ?>
         </tbody>
         </table>
     </div>
+
+    <!-- <div class=" text-capitalize my-5">
+        <button  type="button" class="btn btn-dark " >
+            <a href="index.php" class="text-light " > Logout Form..... </a>
+        </button>
+    </div> -->
 </div>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>

@@ -14,30 +14,24 @@ session_start();
 </style>
 <div class="container ">
     <?php
-            if(isset($_SESSION['status']) && $_SESSION != '' ){
-        ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>  
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>           
-                </div>
-                <?php
-                unset($_SESSION['status']);
-           } 
-           ?>
-    <div class=" text-capitalize my-5">
+        include_once('message.php');
+    ?>
+    <div class=" text-capitalize mt-5">
         <!-- <button  type="button" class="btn btn-primary  text-capitalize" title="برای اضافه کردن کاربر جدید کلیک کنید"> 
             <a href="addUser.php" class="text-light" > Add New User </a>
         </button> -->
     
-        <button  type="button" class="btn btn-secondary mx-5 " >
-            <a href="search.php" class="text-light " > Search Data..... </a>
-        </button>
+       <div>
+            <button  type="button" class="btn btn-secondary w-25 " >
+                <a href="search.php" class="text-light " > Search Data..... </a>
+            </button>
+       </div>
 
-        <button  type="button" class="btn btn-dark " >
-            <a href="index.php" class="text-light " > Logout Form..... </a>
-        </button>
+       <div>
+            <button  type="button" class="btn btn-dark w-25 my-2" >
+                <a href="index.php" class="text-light " > Logout Form..... </a>
+            </button>
+       </div>
     </div>
  
     <div class="h4 pb-4 text-center mb-5 text-danger border-bottom border-danger">
@@ -50,9 +44,11 @@ session_start();
             <th scope="col">Id</th>
             <th scope="col">Image</th>
             <th scope="col">User Name </th>
+            <th scope="col">User Type </th>
             <th scope="col">Date Birthday </th>
             <th scope="col">Email</th>
             <th scope="col">Mobile</th>
+            <th scope="col">Password</th>
             <th scope="col">Gender</th>
             <th scope="col">Degree</th>
             <th scope="col">Favorite Language </th>
@@ -71,8 +67,10 @@ session_start();
                 <?php
                     $id = $row['id'];
                     $name = $row['name'];
+                    $userType = $row['userType'];
                     $email = $row['email'];
                     $mobile = $row['mobile'];
+                    $password = $row['password'];
                     $image = $row['image'];
                     $chechboxData = $row['checkboxData'];
                     $gender = $row['gender'];
@@ -83,9 +81,11 @@ session_start();
                     <td class="align-middle">'.$id.'</td>
                     <td class="align-middle"> <img src= images/'.$image.' /> </td>
                     <td class="align-middle">'.$name.'</td>
+                    <td class="align-middle">'.$userType.'</td>
                     <td class="align-middle">'.$dob.'</td>
                     <td class="align-middle">'.$email.'</td>
                     <td class="align-middle">'.$mobile.'</td>
+                    <td class="align-middle">'.$password.'</td>
                     <td class="align-middle">'.$gender.'</td>
                     <td class="align-middle">'.$edu.'</td>
                     <td class="align-middle">'.$chechboxData.'</td>
@@ -95,8 +95,10 @@ session_start();
 
                     <td class="align-middle">
                         <form action="code.php" method="POST">
-                        <br>
-                            <button type="submit" name="deleteUser" value="'.$id.'" class="btn btn-danger">Delete</button>
+                            <input type="hidden" name="delete_id" value="'.$id.'">
+                            <input type="hidden" name="delete_image" value="'.$image.'">
+                            <br>
+                            <button type="submit" name="deleteUser"  class="btn btn-danger" onclick="return checkDelete();">Delete</button>
                         </form>
                     </td>
                 </tr>';
@@ -113,5 +115,10 @@ session_start();
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <?php include_once('templates/footer.php'); ?>
-
+<script>
+   function checkDelete(){
+       return confirm("Are you sure this user Delete?");
+    
+    }
+</script>
 </html>

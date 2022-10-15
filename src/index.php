@@ -1,5 +1,24 @@
 <?php 
 session_start();
+include_once('DB/Database.php'); 
+include_once('UserController.php');
+if(isset($_POST['login'])){
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['password'] = $_POST['password'];
+    $db = new Database();
+    $inputData = [
+        'email' => mysqli_real_escape_string($db->conn,$_POST['email']),
+        'password' => mysqli_real_escape_string($db->conn,$_POST['password']),
+    ];
+    $user = new UserController;
+    $result = $user->login($inputData);
+    if($result['userType'] === 'user'){
+        header("Location: display.php");
+    } elseif($result['userType'] === 'admin'){
+        header("Location: displayAll.php");
+    }
+
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +40,7 @@ session_start();
                 unset($_SESSION['status']);
            } 
            ?>
-            <form action="display.php" method="POST" class="border border-dark w-50 " id="users" autocomplete="off">
+            <form action="index.php" method="POST" class="border border-dark w-50 " id="users" autocomplete="off">
                 <div class="my-4 ">
                     <label for="email" class="form-label ">Enter your Email address</label>
                     <input type="text"  name="email" class="form-control p-2" value="<?php echo htmlspecialchars($_POST['email']) ?? ''; ?>" >

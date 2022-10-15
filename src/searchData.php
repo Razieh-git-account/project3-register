@@ -28,7 +28,7 @@
             '<div class="container my-5">
                 <div class="jumbotron ">
                     <h1 class="display-4  text-center text-success mb-4">'.$row['name'].'</h1>
-                    <p class=" text-primary  text-center"> Your image is...   <img src='.$image.' class="rounded-3" /> </p>
+                    <p class=" text-primary  text-center"> Your image is...   <img src=images/'.$image.' class="rounded-3" /> </p>
                     <p class="text-danger text-center"> Your email is : '.$row['email'].'</p>
                     <p class="text-dark text-center"> Your mobile is : '.$row['mobile'].'</p>
                     <p class="text-secondary text-center"> Your password is : '.$row['password'].'</p>

@@ -12,30 +12,18 @@ session_start();
             Edit Exist User
     </div>
     <?php
-            if(isset($_SESSION['status']) && $_SESSION != '' ){
-        ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>  
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>   
-                </div>
-                <button class="btn btn-dark my-3"><a href="index.php" class="text-light">Back</a></button> 
-                <?php
-                unset($_SESSION['status']);
-           } 
-        
-
-   
+        include_once('message.php');
+      
       if(isset($_GET['id']))
       {
           $db = new Database();
           $user_id = mysqli_real_escape_string($db->conn, $_GET['id']);
+        //   $userType = mysqli_real_escape_string($db->conn,$_GET['userType']) ;
+          
           $user = new UserController;
           $result = $user->edit($user_id);
           $gender = $result['gender'];
           $edu = $result['education'];
-       
           $checkData = explode(",", $result['checkboxData']);
           if($result)
           {
@@ -55,6 +43,7 @@ session_start();
             <input type="text" class="input" name="password" value="<?=$result['password']?>">
             <div class="red-text"> <?php echo $errors['password'] ?? '' ?> </div>
 
+            <input type="hidden" name="userType" value="<?=$result['userType']?>" >
             <div > Date of Birthday :
                 <input type="date" name="date-birthday"  value="<?=$result['dob']?>" style="width:373px; padding:6px; margin:5px 0 3px 0;" >
             </div>
@@ -161,7 +150,7 @@ session_start();
             </div>
             <div class="text-center">
                 <input type="submit" name="update_user" value="Update" class="btn btn-info  ">
-                <a href="display.php" class="btn btn-danger  mx-3"> Cancel </a>
+                <a href="display.php?id=.'$user_id'. " class="btn btn-danger  mx-3"> Cancel </a>
             </div>
             
         </form>
