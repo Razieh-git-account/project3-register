@@ -126,11 +126,7 @@ class UserController
                         move_uploaded_file($_FILES["new_image"]["tmp_name"], "images/".$_FILES["new_image"]["name"]);
                         unlink("images/".$old_image);
                     }
-                    if($userType == 'admin'){
-                        $_SESSION['status'] = "Data Updated.";
-                        header("Location: displayAll.php");
-                        exit(0); 
-                    }if($userType == 'user'){
+                    
                     $_SESSION['status'] = "Data Updated.";
                     header("Location: display.php");
                     exit(0);
@@ -140,9 +136,9 @@ class UserController
                     exit(0);
                 }
             }
-            }
+  }
         
-    }
+    
 
    /* public function delete($id)
     {
